@@ -1,0 +1,378 @@
+/* CSS Variables for Theming */
+:root {
+    --bg-color-dark: #2C3E50;
+    --primary-dark: #34495E;
+    --secondary-dark: #5D6D7E;
+    --text-color-dark: #ECF0F1;
+    --accent-color-dark: #3498DB;
+    --correct-color-dark: #2ECC71;
+    --wrong-color-dark: #E74C3C;
+    --border-color-dark: #ECF0F1;
+
+    --bg-color-light: #ECF0F1;
+    --primary-light: #FFFFFF;
+    --secondary-light: #BDC3C7;
+    --text-color-light: #2C3E50;
+    --accent-color-light: #2980B9;
+    --correct-color-light: #27AE60;
+    --wrong-color-light: #C0392B;
+    --border-color-light: #2C3E50;
+}
+
+.dark-theme {
+    --bg-color: var(--bg-color-dark);
+    --primary-bg: var(--primary-dark);
+    --secondary-bg: var(--secondary-dark);
+    --text-color: var(--text-color-dark);
+    --accent-color: var(--accent-color-dark);
+    --correct-color: var(--correct-color-dark);
+    --wrong-color: var(--wrong-color-dark);
+    --border-color: var(--border-color-dark);
+    --key-disabled-bg: var(--primary-dark);
+}
+
+.light-theme {
+    --bg-color: var(--bg-color-light);
+    --primary-bg: var(--primary-light);
+    --secondary-bg: var(--secondary-light);
+    --text-color: var(--text-color-light);
+    --accent-color: var(--accent-color-light);
+    --correct-color: var(--correct-color-light);
+    --wrong-color: var(--wrong-color-light);
+    --border-color: var(--border-color-light);
+    --key-disabled-bg: #95a5a6;
+}
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    padding: 20px;
+}
+
+/* Header/Top Bar */
+.top-bar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: var(--primary-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.score-container {
+    display: flex;
+    gap: 20px;
+    font-size: 1rem;
+}
+
+.score-container strong {
+    color: var(--accent-color);
+}
+
+.theme-switcher {
+    display: flex;
+    align-items: center;
+}
+.theme-label { display: none; } /* Hide text label */
+.theme-toggle-checkbox { display: none; }
+.theme-toggle-label {
+    cursor: pointer;
+    width: 50px;
+    height: 25px;
+    background: #555;
+    border-radius: 25px;
+    position: relative;
+    transition: background-color 0.3s;
+}
+.theme-toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    transition: left 0.3s;
+}
+.theme-toggle-checkbox:checked + .theme-toggle-label {
+    background: var(--accent-color);
+}
+.theme-toggle-checkbox:checked + .theme-toggle-label::after {
+    left: calc(100% - 2.5px);
+    transform: translateX(-100%);
+}
+
+
+/* Game Container */
+.game-container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--primary-bg);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-color);
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+#hint-button, #difficulty {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 1px solid var(--secondary-bg);
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+#hint-button:hover, #difficulty:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+#hint-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Game Box */
+.game-box {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.hangman-box {
+    width: 200px;
+}
+.hangman-svg line, .hangman-svg circle {
+    stroke: var(--border-color);
+    stroke-width: 4px;
+    stroke-linecap: round;
+    transition: stroke 0.3s;
+}
+.hangman-part {
+    fill: transparent;
+    display: none;
+}
+
+.word-display-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.word-display {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+    justify-content: center;
+}
+.word-display.shake {
+    animation: shake 0.5s ease-in-out;
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+.word-display .letter {
+    width: 30px;
+    height: 45px;
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--border-color);
+    margin-bottom: 5px;
+    transition: border-color 0.3s, color 0.3s;
+}
+.word-display .letter.guessed {
+    border-color: transparent;
+    animation: reveal 0.4s ease forwards;
+}
+@keyframes reveal {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.incorrect-guesses {
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+.incorrect-guesses span {
+    font-weight: bold;
+    color: var(--wrong-color);
+}
+
+/* Keyboard */
+.keyboard {
+    display: flex;
+    gap: 6px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.keyboard button {
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: min(calc(100% / 10 - 7px), 50px);
+    aspect-ratio: 1 / 1;
+    text-transform: uppercase;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.keyboard button:hover:not(:disabled) {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.keyboard button:disabled {
+    background: var(--key-disabled-bg);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.keyboard button.correct {
+    background: var(--correct-color);
+    color: #fff;
+}
+.keyboard button.incorrect {
+    background: var(--wrong-color);
+    color: #fff;
+}
+
+
+/* Modal */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease;
+    z-index: 100;
+}
+.modal-container.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-content {
+    background: var(--primary-bg);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transform: scale(0.7);
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.modal-container.show .modal-content {
+    transform: scale(1);
+}
+.modal-content img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+.modal-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+.modal-text {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+.modal-text b {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+.play-again-btn {
+    padding: 12px 25px;
+    background: var(--accent-color);
+    color: var(--text-color-dark);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.play-again-btn:hover {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 780px) {
+    body {
+        justify-content: flex-start;
+    }
+    .game-box {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .word-display-container {
+        order: -1;
+    }
+    .game-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .keyboard button {
+        width: min(calc(100% / 8 - 7px), 45px);
+    }
+}

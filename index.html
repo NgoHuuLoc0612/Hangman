@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme"> <header class="top-bar">
+        <div class="score-container">
+            <span>Wins: <strong id="wins-count">0</strong></span>
+            <span>Losses: <strong id="losses-count">0</strong></span>
+            <span>High Score: <strong id="highscore-count">0</strong></span>
+        </div>
+        <div class="theme-switcher">
+            <label for="theme-toggle" class="theme-label">Toggle Theme</label>
+            <input type="checkbox" id="theme-toggle" class="theme-toggle-checkbox">
+            <label for="theme-toggle" class="theme-toggle-label"></label>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <h1>Hangman</h1>
+        <div class="game-controls">
+            <div class="difficulty-selector">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy (4-6 Letters)</option>
+                    <option value="medium" selected>Medium (7-10 Letters)</option>
+                    <option value="hard">Hard (11+ Letters)</option>
+                </select>
+            </div>
+            <button id="hint-button">Get a Hint</button>
+        </div>
+        <div class="game-box">
+            <div class="hangman-box">
+                <svg height="250" width="200" class="hangman-svg">
+                    <line x1="60" y1="20" x2="140" y2="20" />
+                    <line x1="140" y1="20" x2="140" y2="50" />
+                    <line x1="60" y1="20" x2="60" y2="230" />
+                    <line x1="20" y1="230" x2="100" y2="230" />
+                    <circle cx="140" cy="70" r="20" class="hangman-part" id="head" />
+                    <line x1="140" y1="90" x2="140" y2="150" class="hangman-part" id="body" />
+                    <line x1="140" y1="120" x2="110" y2="100" class="hangman-part" id="left-arm" />
+                    <line x1="140" y1="120" x2="170" y2="100" class="hangman-part" id="right-arm" />
+                    <line x1="140" y1="150" x2="110" y2="180" class="hangman-part" id="left-leg" />
+                    <line x1="140" y1="150" x2="170" y2="180" class="hangman-part" id="right-leg" />
+                </svg>
+            </div>
+            <div class="word-display-container">
+                <div class="word-display"></div>
+                <p class="incorrect-guesses">Incorrect Guesses: <span>0 / 6</span></p>
+            </div>
+        </div>
+        <div class="keyboard"></div>
+    </div>
+
+    <div id="game-modal" class="modal-container" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-content">
+            <img src="" alt="Game outcome image">
+            <h2 class="modal-title"></h2>
+            <p class="modal-text">The correct word was: <b class="modal-word"></b></p>
+            <button class="play-again-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
